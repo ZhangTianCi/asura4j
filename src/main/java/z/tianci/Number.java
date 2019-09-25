@@ -2,6 +2,9 @@ package z.tianci;
 
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author ZhangTianci
+ */
 @Slf4j
 public class Number {
     public Integer tryParseInt(java.lang.String str) {
