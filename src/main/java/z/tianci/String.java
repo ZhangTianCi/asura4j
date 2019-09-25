@@ -14,7 +14,7 @@ public class String {
      * @param str 源字符串
      * @return 校验结果
      */
-    public boolean isNullOrEmpty(java.lang.String str) {
+    public static boolean isNullOrEmpty(java.lang.String str) {
         return str == null || str.isEmpty();
     }
 
@@ -26,7 +26,7 @@ public class String {
      * @param str 源字符串
      * @return 校验结果
      */
-    public boolean isEmpty(java.lang.String str) {
+    public static boolean isEmpty(java.lang.String str) {
         return isNullOrEmpty(str) || str.replaceAll("\\s", "").length() == 0;
     }
 
