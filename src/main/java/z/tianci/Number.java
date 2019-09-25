@@ -7,6 +7,12 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class Number {
+    /**
+     * parseInt方法的拓展
+     *
+     * @param str 源字符串
+     * @return 若转换成功, 返回数值. 否则返回null
+     */
     public Integer tryParseInt(java.lang.String str) {
         try {
             if (String.isNullOrEmpty(str)) {
@@ -19,6 +25,13 @@ public class Number {
             return null;
         }
     }
+
+    /**
+     * parseFloat方法的拓展
+     *
+     * @param str 源字符串
+     * @return 若转换成功, 返回数值. 否则返回null
+     */
     public Float tryParseFloat(java.lang.String str) {
         try {
             if (String.isNullOrEmpty(str)) {
@@ -31,6 +44,13 @@ public class Number {
             return null;
         }
     }
+
+    /**
+     * parseDouble方法的拓展
+     *
+     * @param str 源字符串
+     * @return 若转换成功, 返回数值. 否则返回null
+     */
     public Double tryParseDouble(java.lang.String str) {
         try {
             if (String.isNullOrEmpty(str)) {
