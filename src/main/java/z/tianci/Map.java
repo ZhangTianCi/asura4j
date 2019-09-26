@@ -14,7 +14,7 @@ public class Map {
      * @param key 键
      * @return
      */
-    public boolean containsKey(java.util.Map map, Object key) {
+    public static boolean containsKey(java.util.Map map, Object key) {
         return map.containsKey(key) && map.get(key) != null;
     }
 }

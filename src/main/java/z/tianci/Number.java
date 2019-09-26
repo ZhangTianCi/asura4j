@@ -13,7 +13,7 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Integer tryParseInt(String str) {
+    public static Integer tryParseInt(String str) {
         try {
             if (Text.isNullOrEmpty(str)) {
                 log.error("整数转换失败,入参为空");
@@ -32,7 +32,7 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Float tryParseFloat(String str) {
+    public static Float tryParseFloat(String str) {
         try {
             if (Text.isNullOrEmpty(str)) {
                 log.error("浮点值转换失败,入参为空");
@@ -51,7 +51,7 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Double tryParseDouble(String str) {
+    public static Double tryParseDouble(String str) {
         try {
             if (Text.isNullOrEmpty(str)) {
                 log.error("浮点值转换失败,入参为空");
