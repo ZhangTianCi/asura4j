@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 import java.net.URISyntaxException;
+import java.util.stream.Collectors;
 
 import org.apache.http.entity.*;
 import org.apache.http.HttpEntity;
@@ -17,8 +17,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.entity.mime.FormBodyPart;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.impl.client.HttpClientBuilder;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * @author ZhangTianci
@@ -27,11 +27,11 @@ public class Http {
 
     private URI uri;
     private Method method;
-    private HttpClient client;
     HttpEntity requestEntity;
-    private HashMap<java.lang.String, java.lang.String> heads = new HashMap<java.lang.String, java.lang.String>();
-    private HashMap<java.lang.String, java.lang.String> params = new HashMap<java.lang.String, java.lang.String>();
+    private HttpClient client;
     private ObjectMapper JSON = new ObjectMapper();
+    private HashMap<String, String> heads = new HashMap<>();
+    private HashMap<String, String> params = new HashMap<>();
 
     private Http() {
         client = HttpClientBuilder.create().build();
@@ -48,29 +48,29 @@ public class Http {
         this.setUri(uri);
     }
 
-    public Http(Method method, java.lang.String url) throws URISyntaxException {
+    public Http(Method method, String url) throws URISyntaxException {
         this(method);
         this.setUri(url);
     }
 
-    public Http addParams(java.lang.String name, java.lang.String value) {
+    public Http addParams(String name, String value) {
         this.params.put(name, value);
         return this;
     }
 
-    public Http addHead(java.lang.String name, java.lang.String value) {
+    public Http addHead(String name, String value) {
         this.heads.put(name, value);
         return this;
     }
 
-    public Http addHeads(Map<java.lang.String, java.lang.String> heads) {
+    public Http addHeads(Map<String, String> heads) {
         heads.forEach((k, v) -> {
             this.heads.put(k, v);
         });
         return this;
     }
 
-    public Http setUri(java.lang.String url) throws URISyntaxException {
+    public Http setUri(String url) throws URISyntaxException {
         this.uri = new URI(url);
         return this;
     }
@@ -85,7 +85,7 @@ public class Http {
         HttpResponse httpResponse = client.execute(httpRequestBase);
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         if (statusCode < 200 || statusCode >= 300) {
-            throw new IOException(java.lang.String.valueOf(statusCode),
+            throw new IOException(String.valueOf(statusCode),
                     new Throwable("\n\n" + new BufferedReader(
                             new InputStreamReader(
                                     httpResponse.getEntity().getContent()
@@ -95,7 +95,7 @@ public class Http {
         }
     }
 
-    public java.lang.String send(java.lang.String encoding) throws IOException, URISyntaxException {
+    public String send(String encoding) throws IOException, URISyntaxException {
         final char[] buffer = new char[1024];
         final StringBuilder result = new StringBuilder();
         Reader inputStreamReader = new InputStreamReader(send(), encoding);
@@ -110,11 +110,11 @@ public class Http {
         return JSON.readValue(send("UTF-8"), tClass);
     }
 
-    public <T> T send(java.lang.String encoding, Class<T> tClass) throws IOException, URISyntaxException {
+    public <T> T send(String encoding, Class<T> tClass) throws IOException, URISyntaxException {
         return JSON.readValue(send(encoding), tClass);
     }
 
-    public void setBody(java.lang.String content, ContentType contentType) {
+    public void setBody(String content, ContentType contentType) {
         requestEntity = new StringEntity(content, contentType);
     }
 
@@ -175,23 +175,19 @@ public class Http {
             default:
                 throw new IllegalStateException("Unexpected value: " + method);
         }
-        List<java.lang.String> queries = new ArrayList<>();
+        List<String> queries = new ArrayList<>();
         if (uri.getQuery() != null && !"".equals(uri.getQuery().trim())) {
             queries.add(uri.getQuery().trim());
         }
-        params.entrySet().forEach(t -> {
-            queries.add(java.lang.String.format("%1$s=%2$s", t.getKey(), t.getValue()));
-        });
+        params.forEach((key, value) -> queries.add(String.format("%1$s=%2$s", key, value)));
         // 设置请求路径
         httpRequestBase.setURI(new URI(uri.getScheme(),
                 uri.getAuthority(),
                 uri.getPath(),
-                queries.size() > 0 ? queries.stream().collect(Collectors.joining("&")) : null,
+                queries.size() > 0 ? String.join("&", queries) : null,
                 uri.getFragment()));
         // 设置请求头
-        heads.entrySet().forEach(t -> {
-            httpRequestBase.addHeader(t.getKey(), t.getValue());
-        });
+        heads.forEach(httpRequestBase::addHeader);
         return httpRequestBase;
     }
 
