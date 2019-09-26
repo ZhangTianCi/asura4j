@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @author ZhangTianci
  */
-public class String {
+public class Text {
     /**
      * 判断是否为空字符串
      * 无值 以及 绝对的空
@@ -14,7 +14,7 @@ public class String {
      * @param str 源字符串
      * @return 校验结果
      */
-    public static boolean isNullOrEmpty(java.lang.String str) {
+    public static boolean isNullOrEmpty(String str) {
         return str == null || str.isEmpty();
     }
 
@@ -26,7 +26,7 @@ public class String {
      * @param str 源字符串
      * @return 校验结果
      */
-    public static boolean isEmpty(java.lang.String str) {
+    public static boolean isEmpty(String str) {
         return isNullOrEmpty(str) || str.replaceAll("\\s", "").length() == 0;
     }
 
@@ -36,7 +36,7 @@ public class String {
      * @param str 源字符串
      * @return 32位加密结果
      */
-    public static java.lang.String md5(java.lang.String str) throws NoSuchAlgorithmException {
+    public static String md5(String str) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("MD5");
         char[] chars = str.toCharArray();
         byte[] bytes = new byte[chars.length];

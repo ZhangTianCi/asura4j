@@ -13,9 +13,9 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Integer tryParseInt(java.lang.String str) {
+    public Integer tryParseInt(String str) {
         try {
-            if (String.isNullOrEmpty(str)) {
+            if (Text.isNullOrEmpty(str)) {
                 log.error("整数转换失败,入参为空");
                 return null;
             }
@@ -32,9 +32,9 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Float tryParseFloat(java.lang.String str) {
+    public Float tryParseFloat(String str) {
         try {
-            if (String.isNullOrEmpty(str)) {
+            if (Text.isNullOrEmpty(str)) {
                 log.error("浮点值转换失败,入参为空");
                 return null;
             }
@@ -51,9 +51,9 @@ public class Number {
      * @param str 源字符串
      * @return 若转换成功, 返回数值. 否则返回null
      */
-    public Double tryParseDouble(java.lang.String str) {
+    public Double tryParseDouble(String str) {
         try {
-            if (String.isNullOrEmpty(str)) {
+            if (Text.isNullOrEmpty(str)) {
                 log.error("浮点值转换失败,入参为空");
                 return null;
             }
