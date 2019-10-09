@@ -1,4 +1,4 @@
-package com.tianci;
+package z.tianci;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,8 +11,9 @@ public class Process {
     }
 
     public static void exec(String[] args, StringBuilder output, StringBuilder error, Long overtime) {
-        boolean isOutputLog = output == null ? false : true;    // 是否记录输出日志
-        boolean isErrorLog = error == null ? false : true;      // 是否记录错误日志
+        //待考虑
+        boolean isOutputLog = output != null;    // 是否记录输出日志
+        boolean isErrorLog = error != null;      // 是否记录错误日志
         try {
             final Date startTime = new Date();
             final java.lang.Process process = new ProcessBuilder(args).start();
@@ -38,6 +39,8 @@ public class Process {
                     error.append(e).append("\n");
                 }
             });
+            //待考虑
+            //process.waitFor(overtime, TimeUnit.MILLISECONDS);
             Thread overtimeThread = new Thread(() -> {
                 while (overtime > 0) {
                     if (System.currentTimeMillis() - startTime.getTime() > overtime) {
@@ -63,15 +66,12 @@ public class Process {
             errorThread.start();
             overtimeThread.start();
             process.waitFor();
-//            process.waitFor(1000L, TimeUnit.MILLISECONDS);
             overtimeThread.interrupt();
         } catch (Exception e) {
             if (isErrorLog) {
                 error.append(e.getMessage()).append("\n");
             }
         } finally {
-//            output.append(new Date()).append("---------------------------------------------------").append("\n");
-//            error.append(new Date()).append("---------------------------------------------------").append("\n");
         }
         return;
     }
