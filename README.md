@@ -17,6 +17,4 @@ now, i will start modules:
 
 4. Number : more humanize function expand .
 
-5. Array :  more humanize function expand , use standardization/more robust function , to convert List and Array.
-
-6. List :  more humanize function expand , use standardization/more robust function , to convert List and Array.
+5. Enumerable :  more humanize function expand , use standardization/more robust function , to convert List and Array.
